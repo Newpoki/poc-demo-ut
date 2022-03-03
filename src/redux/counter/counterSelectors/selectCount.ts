@@ -1,4 +1,4 @@
-import { RootState } from "../store";
+import { RootState } from "../../store";
 
 /**
  * This is a callback that takes in parameter the redux store state
