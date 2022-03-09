@@ -1,3 +1,4 @@
+import { Button } from "./components/Button";
 import { selectCount } from "./redux/counter/counterSelectors/selectCount";
 import { counterActions } from "./redux/counter/counterSlice";
 import { useAppDispatch, useAppSelector } from "./redux/store";
@@ -26,15 +27,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <button type="button" onClick={handleDecrement}>
-        Decrement
-      </button>
+      <Button onClick={handleDecrement}>Decrement</Button>
 
       <input type="text" value={count} readOnly />
 
-      <button type="button" onClick={handleIncrement}>
-        Increment
-      </button>
+      <Button onClick={handleIncrement}>Increment</Button>
     </div>
   );
 };
