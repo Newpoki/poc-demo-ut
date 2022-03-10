@@ -1,4 +1,4 @@
-import { mockedStoreState } from "../../../../tests/mocks/data/store";
+import { mockedStoreState } from "../../../../tests/mocks/data/storeState";
 import { selectCount } from "../../counterSelectors/selectCount";
 
 /** Describing the tested file */

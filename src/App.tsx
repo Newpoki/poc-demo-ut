@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { Button } from "./components/Button";
 import { selectCount } from "./redux/counter/counterSelectors/selectCount";
 import { counterActions } from "./redux/counter/counterSlice";
@@ -17,19 +18,19 @@ const App = () => {
    */
   const count = useAppSelector(selectCount);
 
-  const handleDecrement = () => {
+  const handleDecrement = useCallback(() => {
     dispatch(counterActions.decrement());
-  };
+  }, [dispatch]);
 
-  const handleIncrement = () => {
+  const handleIncrement = useCallback(() => {
     dispatch(counterActions.increment());
-  };
+  }, [dispatch]);
 
   return (
     <div className="App">
       <Button onClick={handleDecrement}>Decrement</Button>
 
-      <input type="text" value={count} readOnly />
+      <input type="number" value={count} readOnly />
 
       <Button onClick={handleIncrement}>Increment</Button>
     </div>
