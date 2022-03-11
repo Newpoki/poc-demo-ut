@@ -28,11 +28,15 @@ const App = () => {
 
   return (
     <div className="App">
-      <Button onClick={handleDecrement}>Decrement</Button>
+      <Button onClick={handleDecrement} id="cy_decrement_button">
+        Decrement
+      </Button>
 
-      <input type="number" value={count} readOnly />
+      <input type="number" value={count} readOnly id="cy_count_input" />
 
-      <Button onClick={handleIncrement}>Increment</Button>
+      <Button onClick={handleIncrement} id="cy_increment_button">
+        Increment
+      </Button>
     </div>
   );
 };
