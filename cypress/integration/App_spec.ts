@@ -45,7 +45,7 @@ describe("App", () => {
    */
   describe("increment button is clicked", () => {
     it("should increment the input value", () => {
-      cy.get("#cy_decrement_button").click();
+      cy.get("#cy_increment_button").click();
 
       cy.get("#cy_count_input")
         .invoke("val")
