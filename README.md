@@ -1,46 +1,108 @@
-# Getting Started with Create React App
+# **POC demo front-end tests**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a very tiny app based on react, redux with typescript that only contains
+an input with a decrement and increment buttons. Based on this, there is some test, from unit tests to end-to-end tests.
 
-## Available Scripts
+It has been created with [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) so it already comes with few common packages.
 
-In the project directory, you can run:
+This README.md is not explaining how the differents tests are made in the application, but it's explaining what part are tested and why. Each of the libs I'm using here are really well documented, and you should give them a look to have a better understanding of how what they are providing can help us to have a better codebase
 
-### `npm start`
+## **Getting started**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+git clone git@github.com:Newpoki/poc-demo-ut.git
+cd poc-demo-ut
+yarn install #npm run install
+yarn start #npm run start
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## **Which tests should I write in my app and why ?**
 
-### `npm test`
+In a React application, we're writting components, hooks, utils functions that are meant to be reused across the whole app. So it's important to be sure that they are working well by themself and that's where `unit tests` comes. BUT, we can't only check them independently, we must be sure that they still work once putted together, and that's why we end up writting `integration tests` and `e2e tests`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![unit-tests-vs-integration-tests](./public/meme-unit-vs-inte.png)
 
-### `npm run build`
+## **Unit tests**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### **Functions**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This is maybe the easiest case. A function is pure JS. Utils functions are meant to be re-used across the app, and must be as simple as possible, so I think it's a really good idea to get them tested.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+See `src/utils/tests/getActualDate.test.ts` to get more informations.
 
-### `npm run eject`
+### **Redux**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The redux part is managed with [RTK (redux toolkit)](https://redux-toolkit.js.org/) as every modern redux app should.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The redux part of this app is in `src/redux`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+In a redux app, we have few things, but not every of them are revelant to test:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **actions** &rarr; The action are created by redux-toolkit slices, if it changes, the app will not start at all with typescript. So testing is not revelant (IMHO)
 
-## Learn More
+- **selectors** &rarr; The selectors access the app store and returns the specified data. Typescript allow us to avoid accessing an unexistant value, but it let us returns the wrong value. This must be tested. (See `src/redux/counter/tests/counterSelectors/selectCount.test.ts`)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **reducers** &rarr; This is the main part that will update the data, this are the most importants part of the redux app. This must be tested. (See `src/redux/counter/tests/counterReducer.test.ts`);
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### **Custom hooks**
+
+Hooks are an important part of modern react applications as they let us create more easily re usable code and get rid of HOC-ception hell. The problem with hook testing, is that they're meant to be used inside react functional components, which is not really trivial with [Jest](https://jestjs.io/).
+
+But nowadays, this is not a big deals anymore as a really talented guy named `Kent C Dodds` created `react-testing-library` (we'll see more about this later), with another sub lib name `react-testing-library/hooks`. In CRA applications, the required libs are already installed.
+
+See `src/hooks/tests/useGetLocalizedActualDate.test.ts` file to check what is easily doable with this library.
+
+## Integration tests
+
+As said previously for [Custom hooks tests](#custom-hooks), `react-testing-library` allow us to write integration tests for a component. IMHO, we could, but we shouldn't test EVERY single components in the application. Only those who are re-used, UI components for exemple, like Buttons, Checkboxes, Input etc.
+
+See `src/components/tests/Button.test.tsx` or `src/App.test.tsx` for exemple.
+
+**NB**: In `src/App.test.tsx`, I'm misleading myself by testing what could be a huge components (App.tsx) instead of directly testing the Button component. This is only to show what we could do. Ladies and gentlemen, don't try this at home.
+
+## End to End tests
+
+I do not have any experience with end to end tests, but there is some well known tools like [selenium](https://www.selenium.dev/), [robot framework](https://robotframework.org/) and [cypress](https://www.cypress.io/). After checking differencies, I think that `cypress` is the best tool for front-end developer, as it makes us write Javascript, syntax looks like `Mocha`, `Enzyme` and `Jest` libs.
+
+Also, there is a dashboard where we can replay test step by step, check what failed, with some screenshot, works on any browser installed on the user computer.
+
+Cypress is used by a lot of developpers, maintained, the documentation is insanely well written, I really think this is the lib to go with in order to have some really good E2E tests.
+In top of this, the `Typescript` implementation is near perfect.
+
+As opposed to integration tests, the E2E tests shouldn't, IMHO, focus on little component them self, but on the whole screen itself. I think that the E2E test should reflect the user stories. A bit like cucumber for backend tests
+
+See `cypress/integration/App_spec.ts` for what is possible to do.
+
+### Installation
+
+```bash
+yarn add -D cypress @cypress/react @cypress/webpack-dev-server html-webpack-plugin@4 eslint-plugin-cypress
+```
+
+### Config
+
+```javascript
+  /** cypress/tsconfig.json */
+
+  {
+    "compilerOptions": {
+      "target": "es5",
+      "lib": ["es5", "dom"],
+      "types": ["cypress"]
+    },
+    "include": ["**/*.ts"]
+  }
+```
+
+```javascript
+  /** cypress/eslintrc.json */
+
+  {
+    "root": true,
+    "plugins": ["cypress"],
+    "env": {
+      "cypress/globals": true
+    },
+    "extends": ["plugin:cypress/recommended"]
+  }
+```
