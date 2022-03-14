@@ -1,11 +1,11 @@
 # **POC demo front-end tests**
 
 This project is a very tiny app based on react, redux with typescript that only contains
-an input with a decrement and increment buttons. Based on this, there is some test, from unit tests to end-to-end tests.
+an input with a decrement and increment buttons. Based on this, there are some tests, from unit tests to end-to-end tests.
 
 It has been created with [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) so it already comes with few common packages.
 
-This README.md is not explaining how the differents tests are made in the application, but it's explaining what part are tested and why. Each of the libs I'm using here are really well documented, and you should give them a look to have a better understanding of how what they are providing can help us to have a better codebase
+This README.md is not explaining how the differents tests are made in the application, but it's explaining what part are tested and why. Each of the libs I'm using here are really well documented, and you should give them a look to have a better understanding of how what they are providing can help us to have a better and safer codebase
 
 ## **Getting started**
 
@@ -18,7 +18,7 @@ yarn start #npm run start
 
 ## **Which tests should I write in my app and why ?**
 
-In a React application, we're writting components, hooks, utils functions that are meant to be reused across the whole app. So it's important to be sure that they are working well by themself and that's where `unit tests` comes. BUT, we can't only check them independently, we must be sure that they still work once putted together, and that's why we end up writting `integration tests` and `e2e tests`.
+In a React application, we're trying to apply DRY and so, writting components, hooks, utils functions that are meant to be reused across the whole app. So it's important to be sure that they are working well by themselves and that's where `unit tests` comes. BUT, we can't only check them independently, we must be sure that they still work once putted together, and that's why we end up writting `integration tests` and `e2e tests`.
 
 ![unit-tests-vs-integration-tests](./public/meme-unit-vs-inte.png)
 
@@ -26,7 +26,7 @@ In a React application, we're writting components, hooks, utils functions that a
 
 ### **Functions**
 
-This is maybe the easiest case. A function is pure JS. Utils functions are meant to be re-used across the app, and must be as simple as possible, so I think it's a really good idea to get them tested.
+This is maybe the easiest case. Those functions are pure JS. Utils functions are meant to be re-used across the app, and must be as simple as possible, so I think it's a really good idea to get them tested.
 
 See `src/utils/tests/getActualDate.test.ts` to get more informations.
 
@@ -38,9 +38,9 @@ The redux part of this app is in `src/redux`
 
 In a redux app, we have few things, but not every of them are revelant to test:
 
-- **actions** &rarr; The action are created by redux-toolkit slices, if it changes, the app will not start at all with typescript. So testing is not revelant (IMHO)
+- **actions** &rarr; The action are created by redux-toolkit slices. If they change, there will be an error in the components that dispatch them and the app will not start at all with typescript. So, IMHO, testing is not revelant.
 
-- **selectors** &rarr; The selectors access the app store and returns the specified data. Typescript allow us to avoid accessing an unexistant value, but it let us returns the wrong value. This must be tested. (See `src/redux/counter/tests/counterSelectors/selectCount.test.ts`)
+- **selectors** &rarr; The selectors access the app store and return the specified data. Typescript allow us to avoid accessing an unexistant value, but let us accessing the wrong path. This must be tested. (See `src/redux/counter/tests/counterSelectors/selectCount.test.ts`)
 
 - **reducers** &rarr; This is the main part that will update the data, this are the most importants part of the redux app. This must be tested. (See `src/redux/counter/tests/counterReducer.test.ts`);
 
@@ -54,7 +54,7 @@ See `src/hooks/tests/useGetLocalizedActualDate.test.ts` file to check what is ea
 
 ## Integration tests
 
-As said previously for [Custom hooks tests](#custom-hooks), `react-testing-library` allow us to write integration tests for a component. IMHO, we could, but we shouldn't test EVERY single components in the application. Only those who are re-used, UI components for exemple, like Buttons, Checkboxes, Input etc.
+As said previously for [Custom hooks tests](#custom-hooks), `react-testing-library` allow us to write integration tests for a component. IMHO, we could, but we shouldn't test EVERY single components in the application with this lib. Only those who are re-used, UI components for exemple, like Buttons, Checkboxes, Input etc.
 
 See `src/components/tests/Button.test.tsx` or `src/App.test.tsx` for exemple.
 
