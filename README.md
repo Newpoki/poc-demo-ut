@@ -106,3 +106,8 @@ yarn add -D cypress @cypress/react @cypress/webpack-dev-server html-webpack-plug
     "extends": ["plugin:cypress/recommended"]
   }
 ```
+
+TODO:!
+
+- Tester qu'au clic de fonction exporté par le hook change viens la valeur retourné par le custo mhook
+- Ajouter composants intermediaire buttons (juste onClick, puis loading, puis disabled)
