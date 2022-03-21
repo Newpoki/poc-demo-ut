@@ -1,10 +1,14 @@
 import { mockedCounter } from "../../../tests/mocks/data/counter/counter";
 import { counterActions, counterReducer } from "../counterSlice";
-import { CounterSliceState } from "../typings";
+import {
+  CounterAddActionPayload,
+  CounterSliceState,
+  CounterSubstractActionPayload,
+} from "../typings";
 
 /** Describing the tested function */
 describe("counterReducer", () => {
-  /** Explaining what the use case should to
+  /*
    * Here, we're testing that when the increment action is called,
    * the count value is incremented
    *
@@ -19,6 +23,7 @@ describe("counterReducer", () => {
     const action = counterActions.increment();
     const state = mockedCounter.reducer.data;
 
+    /** Explaining what the use case should to */
     it("should increment the count", () => {
       /** Actual represents the function call */
       const actual = counterReducer(state, action);
@@ -34,7 +39,7 @@ describe("counterReducer", () => {
     });
   });
 
-  /** Explaining what the use case should to
+  /**
    * Here, we're testing that when the decrement action is called,
    * the count value is decremented
    *
@@ -49,6 +54,7 @@ describe("counterReducer", () => {
     const action = counterActions.decrement();
     const state = mockedCounter.reducer.data;
 
+    /** Explaining what the use case should to */
     it("should decrement the count", () => {
       /** Actual represents the function call */
       const actual = counterReducer(state, action);
@@ -58,6 +64,42 @@ describe("counterReducer", () => {
          * And it's absolutly not a problem as we're testing the function output and not the implementation
          */
         count: state.count - 1,
+      };
+
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe(`${counterActions.add}`, () => {
+    const payload: CounterAddActionPayload = {
+      value: 12,
+    };
+
+    const action = counterActions.add(payload);
+    const state = mockedCounter.reducer.data;
+
+    it("should add the payload value to the count", () => {
+      const actual = counterReducer(state, action);
+      const expected: CounterSliceState = {
+        count: state.count + action.payload.value,
+      };
+
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe(`${counterActions.substract}`, () => {
+    const payload: CounterSubstractActionPayload = {
+      value: 24,
+    };
+
+    const action = counterActions.substract(payload);
+    const state = mockedCounter.reducer.data;
+
+    it("should substract the payload value to the count", () => {
+      const actual = counterReducer(state, action);
+      const expected: CounterSliceState = {
+        count: state.count - action.payload.value,
       };
 
       expect(actual).toEqual(expected);
