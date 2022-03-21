@@ -14,6 +14,7 @@ export const AdvancedView = () => {
   const handleAddedValueChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
+    console.log({ value });
     setAddedValue(value);
   }, []);
 

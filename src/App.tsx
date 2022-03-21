@@ -17,8 +17,20 @@ const App = () => {
   return (
     <div className="App">
       <div>
-        <Button onClick={handleSetView(VIEW.SIMPLE)}>Simple View</Button>
-        <Button onClick={handleSetView(VIEW.ADVANCED)}>Advanced View</Button>
+        <Button
+          onClick={handleSetView(VIEW.SIMPLE)}
+          aria-pressed={view === VIEW.SIMPLE}
+          id="cy_simple_view_button"
+        >
+          Simple View
+        </Button>
+        <Button
+          onClick={handleSetView(VIEW.ADVANCED)}
+          aria-pressed={view === VIEW.ADVANCED}
+          id="cy_advanced_view_button"
+        >
+          Advanced View
+        </Button>
       </div>
 
       {view === VIEW.SIMPLE && <SimpleView />}
