@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { addNumbers } from "../../utils/addNumbers";
 import {
   CounterAddActionPayload,
   CounterSliceState,
@@ -52,7 +53,7 @@ const counterSlice = createSlice({
      * ```
      */
     add: (state, { payload }: PayloadAction<CounterAddActionPayload>) => {
-      state.count += payload.value;
+      state.count = addNumbers(state.count, payload.value);
     },
     /** The substract action
      * This look likes:
