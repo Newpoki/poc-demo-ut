@@ -109,5 +109,8 @@ yarn add -D cypress @cypress/react @cypress/webpack-dev-server html-webpack-plug
 
 TODO:!
 
-- Tester qu'au clic de fonction exporté par le hook change viens la valeur retourné par le custo mhook
+- Add test for add and subtract reducers
+- Fix APP and cypress test for simple view
+- Fix APP and add cypress tests for advanced view
+
 - Ajouter composants intermediaire buttons (juste onClick, puis loading, puis disabled)
