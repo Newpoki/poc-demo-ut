@@ -1,27 +1,24 @@
-describe("App", () => {
+describe("SimpleView", () => {
   beforeEach(() => {
-    /**
-     * We're going through to the page before every test case
-     * Also ensures that it's a new visit on the page each time
-     */
     cy.visit("http://localhost:3000");
   });
 
   it("initial page state", () => {
     /** Checking the input default "state" */
-    cy.get("#cy_count_input").should((input) => {
+    cy.get("#cy_simple_view_count_input").should((input) => {
+      /** input.val() returns a string but `should('have.value')` number ! */
       expect(input.val()).to.eq("0");
       expect(input.prop("readonly")).to.eq(true);
     });
 
-    /** Checking the button default "state" */
-    cy.get("#cy_decrement_button").should((button) => {
+    /** Checking the decrement button default "state" */
+    cy.get("#cy_simple_view_decrement_button").should((button) => {
       expect(button.text()).to.eq("Decrement");
       expect(button.prop("type")).to.eq("button");
     });
 
-    /** Checking the button default "state" */
-    cy.get("#cy_increment_button").should((button) => {
+    /** Checking the increment button default "state" */
+    cy.get("#cy_simple_view_increment_button").should((button) => {
       expect(button.text()).to.eq("Increment");
       expect(button.prop("type")).to.eq("button");
     });
@@ -32,9 +29,9 @@ describe("App", () => {
    */
   describe("decrement button is clicked", () => {
     it("should decrement the input value", () => {
-      cy.get("#cy_decrement_button").click();
+      cy.get("#cy_simple_view_decrement_button").click();
 
-      cy.get("#cy_count_input").should("have.value", "-1");
+      cy.get("#cy_simple_view_count_input").should("have.value", -1);
     });
   });
 
@@ -45,9 +42,9 @@ describe("App", () => {
    */
   describe("increment button is clicked", () => {
     it("should increment the input value", () => {
-      cy.get("#cy_increment_button").click();
+      cy.get("#cy_simple_view_increment_button").click();
 
-      cy.get("#cy_count_input")
+      cy.get("#cy_simple_view_count_input")
         .invoke("val")
         .should((updatedValue) => {
           expect(updatedValue).to.eq("1");

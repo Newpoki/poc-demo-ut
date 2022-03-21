@@ -28,13 +28,13 @@ export const SimpleView = () => {
 
   return (
     <div id="cy_simple_view">
-      <Button onClick={handleDecrement} id="cy_simple_viewdecrement_button">
+      <Button onClick={handleDecrement} id="cy_simple_view_decrement_button">
         Decrement
       </Button>
 
-      <input type="number" value={count} readOnly id="cy_simple_viewcount_input" />
+      <input type="number" value={count} readOnly id="cy_simple_view_count_input" />
 
-      <Button onClick={handleIncrement} id="cy_simple_viewincrement_button">
+      <Button onClick={handleIncrement} id="cy_simple_view_increment_button">
         Increment
       </Button>
     </div>

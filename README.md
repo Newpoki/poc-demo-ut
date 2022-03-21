@@ -109,7 +109,6 @@ yarn add -D cypress @cypress/react @cypress/webpack-dev-server html-webpack-plug
 
 TODO:!
 
-- Add test for add and subtract reducers
 - Fix APP and cypress test for simple view
 - Fix APP and add cypress tests for advanced view
 
