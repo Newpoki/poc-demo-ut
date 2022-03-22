@@ -56,7 +56,11 @@ See `src/hooks/tests/useGetLocalizedActualDate.test.ts` file to check what is ea
 
 As said previously for [Custom hooks tests](#custom-hooks), `react-testing-library` allow us to write integration tests for a component. IMHO, we could, but we shouldn't test EVERY single components in the application with this lib. Only those who are re-used, UI components for exemple, like Buttons, Checkboxes, Input etc.
 
-See `src/components/tests/Button.test.tsx` or `src/App.test.tsx` for exemple.
+See buttons tests like:
+
+- `src/components/tests/SimpleButton.test.tsx`
+- `src/components/tests/IntermediaryButton.test.tsx`
+- `src/components/tests/Button.test.tsx`
 
 **NB**: In `src/App.test.tsx`, I'm misleading myself by testing what could be a huge components (App.tsx) instead of directly testing the Button component. This is only to show what we could do. Ladies and gentlemen, don't try this at home.
 
@@ -71,7 +75,11 @@ In top of this, the `Typescript` implementation is near perfect.
 
 As opposed to integration tests, the E2E tests shouldn't, IMHO, focus on little component them self, but on the whole screen itself. I think that the E2E test should reflect the user stories. A bit like cucumber for backend tests
 
-See `cypress/integration/App_spec.ts` for what is possible to do.
+See files below to check what is possible to do:
+
+- `cypress/integration/App_spec.ts`
+- `cypress/integration/SimpleView_spec.ts`
+- `cypress/integration/AdvancedView_spec.ts`
 
 ### Installation
 
@@ -106,10 +114,3 @@ yarn add -D cypress @cypress/react @cypress/webpack-dev-server html-webpack-plug
     "extends": ["plugin:cypress/recommended"]
   }
 ```
-
-TODO:!
-
-- Fix APP and cypress test for simple view
-- Fix APP and add cypress tests for advanced view
-
-- Ajouter composants intermediaire buttons (juste onClick, puis loading, puis disabled)
