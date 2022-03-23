@@ -1,6 +1,7 @@
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import App from "./App";
-import { screen, render } from "./tests/mocks/utils/customRender";
+import { render } from "../../tests/mocks/utils/customRender";
+import { App } from "../App";
 
 describe("App components", () => {
   describe("input is a number type", () => {

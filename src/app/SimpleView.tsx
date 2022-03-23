@@ -1,8 +1,10 @@
 import { useCallback } from "react";
-import { Button } from "./components/Button";
-import { selectCount } from "./redux/counter/counterSelectors/selectCount";
-import { counterActions } from "./redux/counter/counterSlice";
-import { useAppDispatch, useAppSelector } from "./redux/store";
+import { selectCount } from "../redux/counter/counterSelectors/selectCount";
+import { counterActions } from "../redux/counter/counterSlice";
+import { useAppDispatch, useAppSelector } from "../redux/store";
+
+import * as Styled from "./SimpleView.styles";
+import * as StyledApp from "./App.styles";
 
 export const SimpleView = () => {
   /**
@@ -27,16 +29,16 @@ export const SimpleView = () => {
   }, [dispatch]);
 
   return (
-    <div id="cy_simple_view">
-      <Button onClick={handleDecrement} id="cy_simple_view_decrement_button">
+    <Styled.Root id="cy_simple_view">
+      <StyledApp.Button onClick={handleDecrement} id="cy_simple_view_decrement_button">
         Decrement
-      </Button>
+      </StyledApp.Button>
 
-      <input type="number" value={count} readOnly id="cy_simple_view_count_input" />
+      <StyledApp.Input type="number" value={count} readOnly id="cy_simple_view_count_input" />
 
-      <Button onClick={handleIncrement} id="cy_simple_view_increment_button">
+      <StyledApp.Button onClick={handleIncrement} id="cy_simple_view_increment_button">
         Increment
-      </Button>
-    </div>
+      </StyledApp.Button>
+    </Styled.Root>
   );
 };
